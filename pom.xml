@@ -90,7 +90,7 @@
                     <server>LocalTomcat</server>
                     <username>maven-tomcat</username>
                     <password>revature</password>
-                    <path>/tracker</path>
+                    <path>/spacepals</path>
                     <update>true</update>
                 </configuration>
             </plugin>
