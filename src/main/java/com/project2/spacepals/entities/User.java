@@ -3,17 +3,15 @@ package com.project2.spacepals.entities;
 import com.project2.spacepals.web.dtos.Principal;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table(name="USERS")
-@SequenceGenerator(name="user_seq_gen",sequenceName = "user_seq", allocationSize = 1)
-public class Users {
+public class User implements Serializable {
 
     @Id
     @Column(name="user_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "first_name", nullable = false)
@@ -22,14 +20,8 @@ public class Users {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
-
-    @Column(name = "phone_number", nullable = false)
-    private int phoneNumber;
-
-    @Column(name = "birth_date",nullable = false)
-    private LocalDate birthDate;
 
     @Column(name = "password",nullable = false)
     private String password;
@@ -43,28 +35,24 @@ public class Users {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public Users(){
+    public User(){
         super();
     }
 
-    public Users(String firstName, String lastName, String email, int phoneNumber, LocalDate birthDate, String password, String planetOfResidency, String gender) {
+    public User(String firstName, String lastName, String email, String password, String planetOfResidency, String gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.birthDate = birthDate;
         this.password = password;
         this.planetOfResidency = planetOfResidency;
         this.gender = gender;
     }
 
-    public Users(int id, String firstName, String lastName, String email, int phoneNumber, LocalDate birthDate, String password, String planetOfResidency, String gender) {
+    public User(int id, String firstName, String lastName, String email, String password, String planetOfResidency, String gender) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.birthDate = birthDate;
         this.password = password;
         this.planetOfResidency = planetOfResidency;
         this.gender = gender;
@@ -72,13 +60,11 @@ public class Users {
 
 
 
-    public Users(int id, String firstName, String lastName, String email, int phoneNumber, LocalDate birthDate, String password, String planetOfResidency, String gender, Role role) {
+    public User(int id, String firstName, String lastName, String email, String password, String planetOfResidency, String gender, Role role) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.birthDate = birthDate;
         this.password = password;
         this.planetOfResidency = planetOfResidency;
         this.gender = gender;
@@ -115,22 +101,6 @@ public class Users {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public int getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public LocalDate getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
     }
 
     public String getPassword() {
@@ -173,33 +143,29 @@ public class Users {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Users users = (Users) o;
-        return id == users.id &&
-                phoneNumber == users.phoneNumber &&
-                Objects.equals(firstName, users.firstName) &&
-                Objects.equals(lastName, users.lastName) &&
-                Objects.equals(email, users.email) &&
-                Objects.equals(birthDate, users.birthDate) &&
-                Objects.equals(password, users.password) &&
-                Objects.equals(planetOfResidency, users.planetOfResidency) &&
-                Objects.equals(gender, users.gender) &&
-                Objects.equals(role, users.role);
+        User user = (User) o;
+        return id == user.id &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(planetOfResidency, user.planetOfResidency) &&
+                Objects.equals(gender, user.gender) &&
+                Objects.equals(role, user.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, phoneNumber, birthDate, password, planetOfResidency, gender, role);
+        return Objects.hash(id, firstName, lastName, email, password, planetOfResidency, gender, role);
     }
 
     @Override
     public String toString() {
-        return "Users{" +
+        return "User{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", phoneNumber=" + phoneNumber +
-                ", birthDate=" + birthDate +
                 ", password='" + password + '\'' +
                 ", planetOfResidency='" + planetOfResidency + '\'' +
                 ", gender='" + gender + '\'' +
