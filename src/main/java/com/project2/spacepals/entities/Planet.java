@@ -1,5 +1,6 @@
 package com.project2.spacepals.entities;
 
+<<<<<<< HEAD
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -157,4 +158,16 @@ public class Planet {
                 ", departingFlights=" + departingFlights +
                 '}';
     }
+=======
+import java.io.Serializable;
+
+public class Planet implements Serializable {
+
+    private int id;
+    private String name;
+    private int moons;
+    private double gravity;
+    private double dayLength;
+    private double distance;
+>>>>>>> 780777131bbff05ddda3c0f4f52a2d593e813f5e
 }

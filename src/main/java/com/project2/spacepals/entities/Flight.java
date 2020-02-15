@@ -1,5 +1,6 @@
 package com.project2.spacepals.entities;
 
+<<<<<<< HEAD
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -192,4 +193,18 @@ public class Flight {
                 ", passengers=" + passengers +
                 '}';
     }
+=======
+public class Flight {
+
+    private int id;
+    private int seats;
+    private int availableSeats;
+    private int aircraft; // probably changing to an aircraft Object / enum
+    private int companyId;
+    private int flightDuration;
+    private int destination;
+    private int departurePointId;
+    private double cost;
+    private int statusId;
+>>>>>>> 780777131bbff05ddda3c0f4f52a2d593e813f5e
 }
