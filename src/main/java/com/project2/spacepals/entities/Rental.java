@@ -19,10 +19,10 @@ public class Rental implements Serializable { // thinking of changing this class
 
    @JoinColumn
    @ManyToOne()
-    private User renter; // the one who is renting? or who???
+    private Users renter; // the one who is renting? or who???
 
     @Column
-    private User rentee;
+    private Users rentee;
 
     @Column(nullable = false)
     private Capacity capacity;

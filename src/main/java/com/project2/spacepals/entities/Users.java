@@ -1,8 +1,5 @@
 package com.project2.spacepals.entities;
 
-<<<<<<< HEAD
-public class Users {
-=======
 import com.project2.spacepals.web.dtos.Principal;
 
 import javax.persistence.*;
@@ -227,5 +224,4 @@ public class Users {
                 ", company=" + company +
                 '}';
     }
->>>>>>> c8b5f75d7054988acc6f38daf7775736a7c90e9f
 }

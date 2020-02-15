@@ -1,6 +1,7 @@
 package com.project2.spacepals.repositories;
 
-import com.project2.spacepals.entities.User;
+import com.project2.spacepals.entities.Users;
+import com.project2.spacepals.entities.Users;
 import com.project2.spacepals.web.dtos.Credentials;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,18 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class UserRepository implements CrudRepositories<User> {
+public class UsersRepository implements CrudRepositories<Users> {
     private SessionFactory sessionFactory;
 
     @Autowired
-    public UserRepository(SessionFactory factory){
+    public UsersRepository(SessionFactory factory){
         super();
         this.sessionFactory = factory;
     }
 
-    public User findUserByCredentials(Credentials creds){
+    public Users findUsersByCredentials(Credentials creds){
         Session session = sessionFactory.getCurrentSession();
-            return session.createQuery("from User u where u.email = :em and u.password = :pw", User.class)
+            return session.createQuery("from Users u where u.email = :em and u.password = :pw", Users.class)
                     .setParameter("em", creds.getEmail())
                     .setParameter("pw", creds.getPassword())
                     .getSingleResult();
@@ -30,42 +31,41 @@ public class UserRepository implements CrudRepositories<User> {
 
 
     @Override
-    public List<User> findAll() {
-        List<User> user = new ArrayList<>();
+    public List<Users> findAll() {
+        List<Users> users = new ArrayList<>();
         Session session = sessionFactory.getCurrentSession();
-            user = session.createQuery("from User", User.class).getResultList();
+            users = session.createQuery("from Users", Users.class).getResultList();
 
-        return user;
+        return users;
     }
 
     @Override
-    public User findById(int id) {
+    public Users findById(int id) {
         Session session = sessionFactory.getCurrentSession();
-            return session.get(User.class, id);
+            return session.get(Users.class, id);
 
     }
 
     @Override
-    public User save(User newObj) {
-        Session session = sessionFactory.getCurrentSession();
-        session.save(newObj);
-        return newObj;
+    public Users save(Users newObj) {
+        return null;
     }
 
+
     @Override
-    public boolean update(User updatedObj) {
+    public boolean update(Users updatedObj) {
         boolean updateSuccessful = false;
         Session session = sessionFactory.getCurrentSession();
-            session.createQuery("update from User u where u.id = :id and u.role = :newrole", User.class)
+            session.createQuery("update from Users u where u.id = :id and u.role = :newrole", Users.class)
                     .setParameter("id", updatedObj.getId()).setParameter("newrole",updatedObj.getRole());
             return updateSuccessful;
     }
 
     @Override
-    public boolean deleteById(User deletedObj) {
+    public boolean deleteById(Users deletedObj) {
         boolean deleteSuccessful = false;
         Session session = sessionFactory.getCurrentSession();
-            session.createQuery("delete from User u where u.id = :id", User.class)
+            session.createQuery("delete from Users u where u.id = :id", Users.class)
                     .setParameter("id",deletedObj.getId());
         return deleteSuccessful;
     }
