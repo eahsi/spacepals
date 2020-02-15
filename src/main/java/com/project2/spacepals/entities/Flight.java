@@ -1,6 +1,5 @@
 package com.project2.spacepals.entities;
 
-<<<<<<< HEAD
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,21 +11,21 @@ import java.util.Objects;
 public class Flight {
 
     @Id
-    @Column(name="flight_id")
+    @Column(name = "flight_id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
-    @Column(name="available_seats", nullable = false)
+    @Column(name = "available_seats", nullable = false)
     private int availableSeats;
 
-    @Column(name="total_seats", nullable = false)
+    @Column(name = "total_seats", nullable = false)
     private int totalSeats;
 
     @JoinColumn
     @ManyToOne(cascade = CascadeType.ALL)
     private Company company;
 
-    @Column(name="flight_duration")
+    @Column(name = "flight_duration")
     private String flightDuration;
 
     @JoinColumn
@@ -37,17 +36,17 @@ public class Flight {
     @ManyToOne(cascade = CascadeType.ALL)
     private Planet flightDeparture;
 
-    @Column(name="flight_cost")
+    @Column(name = "flight_cost")
     private double flightCost;
 
     @Enumerated(EnumType.ORDINAL)
     private FlightStatus flightStatus;
 
-    @JoinTable(name = "USERS_FLIGHTS", joinColumns = @JoinColumn(name="flight_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JoinTable(name = "USERS_FLIGHTS", joinColumns = @JoinColumn(name = "flight_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     @ManyToMany(cascade = CascadeType.ALL)
-    private List<Users> passengers ;
+    private List<Users> passengers;
 
-    public Flight(){
+    public Flight() {
         super();
     }
 
@@ -193,18 +192,4 @@ public class Flight {
                 ", passengers=" + passengers +
                 '}';
     }
-=======
-public class Flight {
-
-    private int id;
-    private int seats;
-    private int availableSeats;
-    private int aircraft; // probably changing to an aircraft Object / enum
-    private int companyId;
-    private int flightDuration;
-    private int destination;
-    private int departurePointId;
-    private double cost;
-    private int statusId;
->>>>>>> 780777131bbff05ddda3c0f4f52a2d593e813f5e
 }
