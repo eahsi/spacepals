@@ -4,8 +4,8 @@ package com.project2.spacepals.entities;
 
 public enum Role {
 
-    BASIC_USER(1,"Basic User"), FLIGHT_MANAGER(2,"Flight Manager"),
-    ADMIN(3,"Admin"),LOCKED(4,"Locked");
+    BASIC_USER(0,"Basic User"), FLIGHT_MANAGER(1,"Flight Manager"),
+    ADMIN(2,"Admin"),LOCKED(3,"Locked");
 
 
     private int id;
@@ -16,6 +16,15 @@ public enum Role {
     Role(int id, String role_name) {
         this.id = id;
         this.role_name = role_name;
+    }
+
+    public static Role getById(int id) {
+        for (Role role : Role.values()) {
+            if (role.id == id) {
+                return role;
+            }
+        }
+        return Role.LOCKED;
     }
 
     @Override

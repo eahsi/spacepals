@@ -3,9 +3,7 @@ package com.project2.spacepals;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.hibernate.cfg.Environment;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Component;
@@ -25,7 +23,8 @@ import java.util.Properties;
 
 @EnableWebMvc
 @Configuration
-@Component
+@ComponentScan
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableTransactionManagement
 @PropertySource("classpath:app.properties")
 public class AppConfig implements WebMvcConfigurer, WebApplicationInitializer {
@@ -73,7 +72,6 @@ public class AppConfig implements WebMvcConfigurer, WebApplicationInitializer {
         hibernateProperties.setProperty(Environment.DIALECT, "org.hibernate.dialect.Oracle12cDialect");
         hibernateProperties.setProperty(Environment.SHOW_SQL,"true");
         hibernateProperties.setProperty(Environment.FORMAT_SQL,"true");
-        hibernateProperties.setProperty(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
         hibernateProperties.setProperty(Environment.HBM2DDL_AUTO,"update");
         return hibernateProperties;
     }

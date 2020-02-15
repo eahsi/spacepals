@@ -4,6 +4,7 @@ import com.project2.spacepals.web.dtos.Principal;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -40,14 +41,20 @@ public class Users {
     @Column(name = "gender", nullable = false)
     private String gender;
 
-    @Enumerated(EnumType.STRING)
+    @Column(name="frequent_flyer_points")
+    private int frequentFlyerPoints;
+
+    @Enumerated(EnumType.ORDINAL)
     private Role role;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Company> company;
 
     public Users(){
         super();
     }
 
-    public Users(String firstName, String lastName, String email, int phoneNumber, LocalDate birthDate, String password, String planetOfResidency, String gender) {
+    public Users(String firstName, String lastName, String email, int phoneNumber, LocalDate birthDate, String password, String planetOfResidency, String gender, int frequentFlyerPoints, Role role, List<Company> company) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -56,33 +63,24 @@ public class Users {
         this.password = password;
         this.planetOfResidency = planetOfResidency;
         this.gender = gender;
-    }
-
-    public Users(int id, String firstName, String lastName, String email, int phoneNumber, LocalDate birthDate, String password, String planetOfResidency, String gender) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.birthDate = birthDate;
-        this.password = password;
-        this.planetOfResidency = planetOfResidency;
-        this.gender = gender;
-    }
-
-
-
-    public Users(int id, String firstName, String lastName, String email, int phoneNumber, LocalDate birthDate, String password, String planetOfResidency, String gender, Role role) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.birthDate = birthDate;
-        this.password = password;
-        this.planetOfResidency = planetOfResidency;
-        this.gender = gender;
+        this.frequentFlyerPoints = frequentFlyerPoints;
         this.role = role;
+        this.company = company;
+    }
+
+    public Users(int id, String firstName, String lastName, String email, int phoneNumber, LocalDate birthDate, String password, String planetOfResidency, String gender, int frequentFlyerPoints, Role role, List<Company> company) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.birthDate = birthDate;
+        this.password = password;
+        this.planetOfResidency = planetOfResidency;
+        this.gender = gender;
+        this.frequentFlyerPoints = frequentFlyerPoints;
+        this.role = role;
+        this.company = company;
     }
 
     public int getId() {
@@ -169,6 +167,22 @@ public class Users {
         return new Principal(this.id, this.email,this.role);
     }
 
+    public int getFrequentFlyerPoints() {
+        return frequentFlyerPoints;
+    }
+
+    public void setFrequentFlyerPoints(int frequentFlyerPoints) {
+        this.frequentFlyerPoints = frequentFlyerPoints;
+    }
+
+    public List<Company> getCompany() {
+        return company;
+    }
+
+    public void setCompany(List<Company> company) {
+        this.company = company;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -176,6 +190,7 @@ public class Users {
         Users users = (Users) o;
         return id == users.id &&
                 phoneNumber == users.phoneNumber &&
+                frequentFlyerPoints == users.frequentFlyerPoints &&
                 Objects.equals(firstName, users.firstName) &&
                 Objects.equals(lastName, users.lastName) &&
                 Objects.equals(email, users.email) &&
@@ -183,12 +198,13 @@ public class Users {
                 Objects.equals(password, users.password) &&
                 Objects.equals(planetOfResidency, users.planetOfResidency) &&
                 Objects.equals(gender, users.gender) &&
-                Objects.equals(role, users.role);
+                role == users.role &&
+                Objects.equals(company, users.company);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, phoneNumber, birthDate, password, planetOfResidency, gender, role);
+        return Objects.hash(id, firstName, lastName, email, phoneNumber, birthDate, password, planetOfResidency, gender, frequentFlyerPoints, role, company);
     }
 
     @Override
@@ -203,7 +219,9 @@ public class Users {
                 ", password='" + password + '\'' +
                 ", planetOfResidency='" + planetOfResidency + '\'' +
                 ", gender='" + gender + '\'' +
+                ", frequentFlyerPoints=" + frequentFlyerPoints +
                 ", role=" + role +
+                ", company=" + company +
                 '}';
     }
 }
