@@ -36,7 +36,7 @@ public class PlanetRepository implements CrudRepositories<Planet> {
         Session session = sessionFactory.getCurrentSession();
         session.createQuery("update from Planets p where p.id = :id", Planet.class)
                 .setParameter("id", updatedObj.getId());
-        return updateSuccessful;
+        return updateSuccessful; // to check this further
     }
 
     @Override
