@@ -25,7 +25,6 @@ public class UserService  {
     public List<Users> getAllUser(){
         return userRepo.findAll();
     }
-
     @Transactional(readOnly = true)
     public Users authenticate(Credentials creds){
         if(creds == null || creds.getEmail() == null || creds.getPassword() == null ||
