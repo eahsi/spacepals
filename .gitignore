@@ -1,0 +1,8 @@
+application.properties
+.idea
+/spacepals.iml
+/.classpath
+/.project
+/.settings
+/pom.xml
+logs
