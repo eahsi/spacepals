@@ -4,4 +4,5 @@ application.properties
 /.classpath
 /.project
 /.settings
+/pom.xml
 logs
