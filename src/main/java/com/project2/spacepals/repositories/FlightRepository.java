@@ -13,30 +13,36 @@ public class FlightRepository implements CrudRepositories<Flight> {
     @Override
     public List<Flight> findAll() {
         Session session = sessionFactory.getCurrentSession();
-        return null;
+        return session.createQuery("from Flights", Flight.class).getResultList();
     }
 
     @Override
     public Flight findById(int id) {
         Session session = sessionFactory.getCurrentSession();
-        return null;
+        return session.get(Flight.class, id);
     }
 
     @Override
     public Flight save(Flight newObj) {
         Session session = sessionFactory.getCurrentSession();
-        return null;
+        session.save(newObj);
+        return newObj;
     }
 
     @Override
     public boolean update(Flight updatedObj) {
+        boolean updateSuccessful = false;
         Session session = sessionFactory.getCurrentSession();
-        return false;
+        session.createQuery("update from Flights f where f.id = :id and f.available_seats = :seats",Flight.class)
+                .setParameter("id", updatedObj.getId()).setParameter("seats",updatedObj.getAvailableSeats());
+        return updateSuccessful;
     }
 
     @Override
     public boolean deleteById(Flight deletedObj) {
         Session session = sessionFactory.getCurrentSession();
+        session.createQuery("delete from Flights f where f.id = :id",Flight.class)
+                .setParameter("id",deletedObj.getId());
         return false;
     }
 }
