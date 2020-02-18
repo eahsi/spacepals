@@ -1,78 +1,74 @@
 package com.project2.spacepals.entities;
 
 import javax.persistence.*;
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name="FLIGHTS")
-@SequenceGenerator(name="flight_seq_gen", sequenceName = "flight_seq", allocationSize = 1)
-public class Flight {
+public class Flight implements Serializable {
 
-    @Id
-    @Column(name = "flight_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "available_seats", nullable = false)
+    @Column(nullable = false)
+    private Aircraft aircraft;
+
+    @Column
+    private double duration;
+
+    @Column(nullable = false)
+    private Planet destination;
+
+    @Column(nullable = false)
+    private Planet departure;
+
+    @Column(nullable = false)
+    private double cost;
+
+    @Column
+    private Date date;
+
+    @Column
     private int availableSeats;
-
-    @Column(name = "total_seats", nullable = false)
-    private int totalSeats;
-
-    @JoinColumn
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Company company;
-
-    @Column(name = "flight_duration")
-    private String flightDuration;
-
-    @JoinColumn
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Planet flightDestination;
-
-    @JoinColumn
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Planet flightDeparture;
-
-    @Column(name = "flight_cost")
-    private double flightCost;
-
-    @Enumerated(EnumType.ORDINAL)
-    private FlightStatus flightStatus;
 
     @JoinTable(name = "USERS_FLIGHTS", joinColumns = @JoinColumn(name = "flight_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     @ManyToMany(cascade = CascadeType.ALL)
-    private List<Users> passengers;
+    private List<User> passengers;
+
+    @Enumerated(EnumType.STRING)
+    private FlightStatus status;
+
 
     public Flight() {
         super();
     }
 
-    public Flight(int availableSeats, int totalSeats, Company company, String flightDuration, Planet flightDestination, Planet flightDeparture, double flightCost, FlightStatus flightStatus, List<Users> passengers) {
+    public Flight(Aircraft aircraft, double duration, Planet destination, Planet departure, double cost, Date date, int availableSeats, List<User> passengers, FlightStatus status) {
+        this.aircraft = aircraft;
+        this.duration = duration;
+        this.destination = destination;
+        this.departure = departure;
+        this.cost = cost;
+        this.date = date;
         this.availableSeats = availableSeats;
-        this.totalSeats = totalSeats;
-        this.company = company;
-        this.flightDuration = flightDuration;
-        this.flightDestination = flightDestination;
-        this.flightDeparture = flightDeparture;
-        this.flightCost = flightCost;
-        this.flightStatus = flightStatus;
         this.passengers = passengers;
+        this.status = status;
     }
 
-    public Flight(int id, int availableSeats, int totalSeats, Company company, String flightDuration, Planet flightDestination, Planet flightDeparture, double flightCost, FlightStatus flightStatus, List<Users> passengers) {
+    public Flight(int id, Aircraft aircraft, double duration, Planet destination, Planet departure, double cost, Date date, int availableSeats, List<User> passengers, FlightStatus status) {
         this.id = id;
+        this.aircraft = aircraft;
+        this.duration = duration;
+        this.destination = destination;
+        this.departure = departure;
+        this.cost = cost;
+        this.date = date;
         this.availableSeats = availableSeats;
-        this.totalSeats = totalSeats;
-        this.company = company;
-        this.flightDuration = flightDuration;
-        this.flightDestination = flightDestination;
-        this.flightDeparture = flightDeparture;
-        this.flightCost = flightCost;
-        this.flightStatus = flightStatus;
         this.passengers = passengers;
+        this.status = status;
     }
 
     public int getId() {
@@ -83,6 +79,54 @@ public class Flight {
         this.id = id;
     }
 
+    public Aircraft getAircraft() {
+        return aircraft;
+    }
+
+    public void setAircraft(Aircraft aircraft) {
+        this.aircraft = aircraft;
+    }
+
+    public double getDuration() {
+        return duration;
+    }
+
+    public void setDuration(double duration) {
+        this.duration = duration;
+    }
+
+    public Planet getDestination() {
+        return destination;
+    }
+
+    public void setDestination(Planet destination) {
+        this.destination = destination;
+    }
+
+    public Planet getDeparture() {
+        return departure;
+    }
+
+    public void setDeparture(Planet departure) {
+        this.departure = departure;
+    }
+
+    public double getCost() {
+        return cost;
+    }
+
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public int getAvailableSeats() {
         return availableSeats;
     }
@@ -91,105 +135,57 @@ public class Flight {
         this.availableSeats = availableSeats;
     }
 
-    public int getTotalSeats() {
-        return totalSeats;
-    }
-
-    public void setTotalSeats(int totalSeats) {
-        this.totalSeats = totalSeats;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    public String getFlightDuration() {
-        return flightDuration;
-    }
-
-    public void setFlightDuration(String flightDuration) {
-        this.flightDuration = flightDuration;
-    }
-
-    public Planet getFlightDestination() {
-        return flightDestination;
-    }
-
-    public void setFlightDestination(Planet flightDestination) {
-        this.flightDestination = flightDestination;
-    }
-
-    public Planet getFlightDeparture() {
-        return flightDeparture;
-    }
-
-    public void setFlightDeparture(Planet flightDeparture) {
-        this.flightDeparture = flightDeparture;
-    }
-
-    public double getFlightCost() {
-        return flightCost;
-    }
-
-    public void setFlightCost(double flightCost) {
-        this.flightCost = flightCost;
-    }
-
-    public FlightStatus getFlightStatus() {
-        return flightStatus;
-    }
-
-    public void setFlightStatus(FlightStatus flightStatus) {
-        this.flightStatus = flightStatus;
-    }
-
-    public List<Users> getPassengers() {
+    public List<User> getPassengers() {
         return passengers;
     }
 
-    public void setPassengers(List<Users> passengers) {
+    public void setPassengers(List<User> passengers) {
         this.passengers = passengers;
+    }
+
+    public FlightStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(FlightStatus status) {
+        this.status = status;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Flight)) return false;
         Flight flight = (Flight) o;
-        return id == flight.id &&
-                availableSeats == flight.availableSeats &&
-                totalSeats == flight.totalSeats &&
-                Double.compare(flight.flightCost, flightCost) == 0 &&
-                Objects.equals(company, flight.company) &&
-                Objects.equals(flightDuration, flight.flightDuration) &&
-                Objects.equals(flightDestination, flight.flightDestination) &&
-                Objects.equals(flightDeparture, flight.flightDeparture) &&
-                flightStatus == flight.flightStatus &&
-                Objects.equals(passengers, flight.passengers);
+        return getId() == flight.getId() &&
+                Double.compare(flight.getDuration(), getDuration()) == 0 &&
+                Double.compare(flight.getCost(), getCost()) == 0 &&
+                getAvailableSeats() == flight.getAvailableSeats() &&
+                Objects.equals(getAircraft(), flight.getAircraft()) &&
+                Objects.equals(getDestination(), flight.getDestination()) &&
+                Objects.equals(getDeparture(), flight.getDeparture()) &&
+                Objects.equals(getDate(), flight.getDate()) &&
+                Objects.equals(getPassengers(), flight.getPassengers()) &&
+                getStatus() == flight.getStatus();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, availableSeats, totalSeats, company, flightDuration, flightDestination, flightDeparture, flightCost, flightStatus, passengers);
+        return Objects.hash(getId(), getAircraft(), getDuration(), getDestination(), getDeparture(), getCost(), getDate(), getAvailableSeats(), getPassengers(), getStatus());
     }
 
     @Override
     public String toString() {
         return "Flight{" +
                 "id=" + id +
+                ", aircraft=" + aircraft +
+                ", duration=" + duration +
+                ", destination=" + destination +
+                ", departure=" + departure +
+                ", cost=" + cost +
+                ", date=" + date +
                 ", availableSeats=" + availableSeats +
-                ", totalSeats=" + totalSeats +
-                ", company=" + company +
-                ", flightDuration='" + flightDuration + '\'' +
-                ", flightDestination=" + flightDestination +
-                ", flightDeparture=" + flightDeparture +
-                ", flightCost=" + flightCost +
-                ", flightStatus=" + flightStatus +
                 ", passengers=" + passengers +
+                ", status=" + status +
                 '}';
     }
 }

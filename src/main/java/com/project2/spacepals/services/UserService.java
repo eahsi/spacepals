@@ -1,12 +1,11 @@
 package com.project2.spacepals.services;
 
-import com.project2.spacepals.entities.Users;
+import com.project2.spacepals.entities.Role;
+import com.project2.spacepals.entities.User;
 import com.project2.spacepals.exceptions.AuthenticationException;
 import com.project2.spacepals.exceptions.BadRequestException;
-import com.project2.spacepals.repositories.CrudRepositories;
 import com.project2.spacepals.repositories.UserRepository;
 import com.project2.spacepals.web.dtos.Credentials;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,19 +21,31 @@ public class UserService  {
     }
 
     @Transactional(readOnly = true)
-    public List<Users> getAllUser(){
+    public List<User> getAllUser(){
+
         return userRepo.findAll();
     }
+
     @Transactional(readOnly = true)
-    public Users authenticate(Credentials creds){
+    public User authenticate(Credentials creds){
         if(creds == null || creds.getEmail() == null || creds.getPassword() == null ||
         creds.getEmail().equals("") || creds.getPassword().equals(""))
         {throw new BadRequestException("Invalid credentials object provided!");
         }
-        Users retrievedUser = userRepo.findUserByCredentials(creds);
+        User retrievedUser = userRepo.findUserByCredentials(creds);
         if(retrievedUser == null){
             throw new AuthenticationException();
         }
         return retrievedUser;
+    }
+
+    @Transactional
+    public User register(User newUser) {
+
+        // validation would go here...
+
+        newUser.setRole(Role.BASIC_USER);
+        return userRepo.save(newUser);
+
     }
 }
