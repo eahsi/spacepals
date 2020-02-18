@@ -141,7 +141,9 @@
                     <configuration>
                         <url>http://localhost:8080/manager/text</url>
                         <server>LocalTomcat</server>
-                        <path>/quizzard</path>
+                        <username>maven-tomcat</username>
+                        <password>revature</password>
+                        <path>/spacepals</path>
                         <update>true</update>
                     </configuration>
                 </plugin>

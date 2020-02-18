@@ -7,13 +7,16 @@ import com.project2.spacepals.exceptions.BadRequestException;
 import com.project2.spacepals.repositories.UserRepository;
 import com.project2.spacepals.web.dtos.Credentials;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
+@Service
 public class UserService  {
+
     private UserRepository userRepo;
+
     @Autowired
     public UserService(UserRepository repo){
         super();

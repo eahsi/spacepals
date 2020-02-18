@@ -13,16 +13,16 @@ public class Flight implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @OneToOne
     private Aircraft aircraft;
 
     @Column
     private double duration;
 
-    @Column(nullable = false)
+    @OneToOne
     private Planet destination;
 
-    @Column(nullable = false)
+    @OneToOne
     private Planet departure;
 
     @Column(nullable = false)

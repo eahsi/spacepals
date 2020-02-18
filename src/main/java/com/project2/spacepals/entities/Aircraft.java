@@ -6,6 +6,7 @@ import java.util.Objects;
 
 
 @Entity
+@Table(name = "AIRCRAFTS")
 public class Aircraft implements Serializable {
 
     @Id @Column

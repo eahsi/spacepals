@@ -29,10 +29,10 @@ public class Planet {
     @Column(name="distance_from_earth")
     private double distanceFromEarth;
 
-    @OneToMany(mappedBy = "flightDestination")
+    @OneToMany
     private List<Flight> arrivingFlights;
 
-    @OneToMany(mappedBy = "flightDeparture")
+    @OneToMany
     private List<Flight> departingFlights;
 
     public Planet(){
