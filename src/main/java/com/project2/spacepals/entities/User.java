@@ -159,6 +159,10 @@ public class User {
         this.company = company;
     }
 
+    public Principal extractPrincipal() {
+        return new Principal(this.id, this.email, this.role);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
