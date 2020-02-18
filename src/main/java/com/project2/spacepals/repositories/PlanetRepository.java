@@ -1,7 +1,6 @@
 package com.project2.spacepals.repositories;
 
 import com.project2.spacepals.entities.Planet;
-import com.project2.spacepals.entities.Users;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 

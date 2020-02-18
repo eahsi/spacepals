@@ -1,54 +1,44 @@
 package com.project2.spacepals.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name="COMPANY")
-@SequenceGenerator(name = "company_seq_gen",sequenceName = "company_seq",allocationSize = 1)
-public class Company {
+public class Company implements Serializable {
 
-    @Id
-    @Column(name="company_id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "company_name")
-    private String companyName;
+    @Column(nullable = false, unique = true)
+    private String name;
 
-    @Column(name="company_email")
-    private String companyEmail;
-
-    @Column(name="business_phone_number")
-    private int businessPhoneNumber;
-
-    @Column(name="planet_of_operations")
-    private String planetOfOperations;
+    @Column(nullable = false, unique = true)
+    private String address;
 
     @JoinColumn
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Users owner;
+    @OneToOne(cascade = CascadeType.ALL)
+    private User manager;
+    @OneToMany(mappedBy = "company")
+    private List<Aircraft> aircrafts;
 
-    public Company(){
+    public Company() {
         super();
     }
 
-    public Company(String companyName, String companyEmail, int businessPhoneNumber, String planetOfOperations, Users owner) {
-        this.companyName = companyName;
-        this.companyEmail = companyEmail;
-        this.businessPhoneNumber = businessPhoneNumber;
-        this.planetOfOperations = planetOfOperations;
-        this.owner = owner;
+    public Company(String name, String address, User manager) {
+        this.name = name;
+        this.address = address;
+        this.manager = manager;
     }
 
-    public Company(int id, String companyName, String companyEmail, int businessPhoneNumber, String planetOfOperations, Users owner) {
-        this.id = id;
-        this.companyName = companyName;
-        this.companyEmail = companyEmail;
-        this.businessPhoneNumber = businessPhoneNumber;
-        this.planetOfOperations = planetOfOperations;
-        this.owner = owner;
+    public Company(String name, String address, User manager, List<Aircraft> aircrafts) {
+        this.name = name;
+        this.address = address;
+        this.manager = manager;
+        this.aircrafts = aircrafts;
     }
 
     public int getId() {
@@ -59,63 +49,63 @@ public class Company {
         this.id = id;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getName() {
+        return name;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCompanyEmail() {
-        return companyEmail;
+    public String getAddress() {
+        return address;
     }
 
-    public void setCompanyEmail(String companyEmail) {
-        this.companyEmail = companyEmail;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public int getBusinessPhoneNumber() {
-        return businessPhoneNumber;
+    public User getManager() {
+        return manager;
     }
 
-    public void setBusinessPhoneNumber(int businessPhoneNumber) {
-        this.businessPhoneNumber = businessPhoneNumber;
+    public void setManager(User manager) {
+        this.manager = manager;
     }
 
-    public String getPlanetOfOperations() {
-        return planetOfOperations;
+    public List<Aircraft> getAircrafts() {
+        return aircrafts;
     }
 
-    public void setPlanetOfOperations(String planetOfOperations) {
-        this.planetOfOperations = planetOfOperations;
+    public void setAircrafts(List<Aircraft> aircrafts) {
+        this.aircrafts = aircrafts;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Company)) return false;
         Company company = (Company) o;
-        return id == company.id &&
-                businessPhoneNumber == company.businessPhoneNumber &&
-                Objects.equals(companyName, company.companyName) &&
-                Objects.equals(companyEmail, company.companyEmail) &&
-                Objects.equals(planetOfOperations, company.planetOfOperations);
+        return getId() == company.getId() &&
+                Objects.equals(getName(), company.getName()) &&
+                Objects.equals(getAddress(), company.getAddress()) &&
+                Objects.equals(getManager(), company.getManager()) &&
+                Objects.equals(getAircrafts(), company.getAircrafts());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, companyName, companyEmail, businessPhoneNumber, planetOfOperations);
+        return Objects.hash(getId(), getName(), getAddress(), getManager(), getAircrafts());
     }
 
     @Override
     public String toString() {
         return "Company{" +
                 "id=" + id +
-                ", companyName='" + companyName + '\'' +
-                ", companyEmail='" + companyEmail + '\'' +
-                ", businessPhoneNumber=" + businessPhoneNumber +
-                ", planetOfOperations='" + planetOfOperations + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", manager=" + manager +
+                ", aircrafts=" + aircrafts +
                 '}';
     }
 }
