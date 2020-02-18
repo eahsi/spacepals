@@ -17,7 +17,7 @@ public class LoggingAspect {
 
     private final Logger LOG = LogManager.getLogger(this.getClass());
 
-    @Pointcut("within(com.revature..*)")
+    @Pointcut("within(com.project2..*)")
     public void logAll() { }
 
     @Before("logAll()")

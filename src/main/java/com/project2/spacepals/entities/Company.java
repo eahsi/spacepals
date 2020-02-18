@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "COMPANIES")
 public class Company implements Serializable {
 
     @Id @Column
@@ -21,7 +22,9 @@ public class Company implements Serializable {
     @JoinColumn
     @OneToOne(cascade = CascadeType.ALL)
     private User manager;
-    @OneToMany(mappedBy = "company")
+
+    @JoinColumn
+    @OneToMany
     private List<Aircraft> aircrafts;
 
     public Company() {

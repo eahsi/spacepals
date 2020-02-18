@@ -3,7 +3,6 @@ package com.project2.spacepals.entities;
 import com.project2.spacepals.web.dtos.Principal;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,7 +25,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @OneToOne
     private Planet residency;
 
     @Column(name = "gender", nullable = false)
@@ -38,7 +37,7 @@ public class User {
     @Enumerated(EnumType.ORDINAL)
     private Role role;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany
     private List<Company> company;
 
     public User(){
