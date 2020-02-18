@@ -1,7 +1,6 @@
 package com.project2.spacepals.entities;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -29,35 +28,25 @@ public class Planet {
     @Column(name="distance_from_earth")
     private double distanceFromEarth;
 
-    @OneToMany
-    private List<Flight> arrivingFlights;
-
-    @OneToMany
-    private List<Flight> departingFlights;
-
     public Planet(){
         super();
     }
 
-    public Planet(String planetName, int numberOfMoons, double gravity, int hoursInDay, double distanceFromEarth, List<Flight> arrivingFlights, List<Flight> departingFlights) {
+    public Planet(String planetName, int numberOfMoons, double gravity, int hoursInDay, double distanceFromEarth) {
         this.planetName = planetName;
         this.numberOfMoons = numberOfMoons;
         this.gravity = gravity;
         this.hoursInDay = hoursInDay;
         this.distanceFromEarth = distanceFromEarth;
-        this.arrivingFlights = arrivingFlights;
-        this.departingFlights = departingFlights;
     }
 
-    public Planet(int id, String planetName, int numberOfMoons, double gravity, int hoursInDay, double distanceFromEarth, List<Flight> arrivingFlights, List<Flight> departingFlights) {
+    public Planet(int id, String planetName, int numberOfMoons, double gravity, int hoursInDay, double distanceFromEarth) {
         this.id = id;
         this.planetName = planetName;
         this.numberOfMoons = numberOfMoons;
         this.gravity = gravity;
         this.hoursInDay = hoursInDay;
         this.distanceFromEarth = distanceFromEarth;
-        this.arrivingFlights = arrivingFlights;
-        this.departingFlights = departingFlights;
     }
 
     public int getId() {
@@ -108,22 +97,6 @@ public class Planet {
         this.distanceFromEarth = distanceFromEarth;
     }
 
-    public List<Flight> getArrivingFlights() {
-        return arrivingFlights;
-    }
-
-    public void setArrivingFlights(List<Flight> arrivingFlights) {
-        this.arrivingFlights = arrivingFlights;
-    }
-
-    public List<Flight> getDepartingFlights() {
-        return departingFlights;
-    }
-
-    public void setDepartingFlights(List<Flight> departingFlights) {
-        this.departingFlights = departingFlights;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -134,14 +107,12 @@ public class Planet {
                 Double.compare(planet.gravity, gravity) == 0 &&
                 hoursInDay == planet.hoursInDay &&
                 Double.compare(planet.distanceFromEarth, distanceFromEarth) == 0 &&
-                Objects.equals(planetName, planet.planetName) &&
-                Objects.equals(arrivingFlights, planet.arrivingFlights) &&
-                Objects.equals(departingFlights, planet.departingFlights);
+                Objects.equals(planetName, planet.planetName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, planetName, numberOfMoons, gravity, hoursInDay, distanceFromEarth, arrivingFlights, departingFlights);
+        return Objects.hash(id, planetName, numberOfMoons, gravity, hoursInDay, distanceFromEarth);
     }
 
     @Override
@@ -153,8 +124,6 @@ public class Planet {
                 ", gravity=" + gravity +
                 ", hoursInDay=" + hoursInDay +
                 ", distanceFromEarth=" + distanceFromEarth +
-                ", arrivingFlights=" + arrivingFlights +
-                ", departingFlights=" + departingFlights +
                 '}';
     }
 }

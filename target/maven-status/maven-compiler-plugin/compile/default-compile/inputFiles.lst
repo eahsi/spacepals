@@ -2,6 +2,7 @@
 /Users/bosco/Documents/revature/project2/spacepals/src/main/java/com/project2/spacepals/entities/Capacity.java
 /Users/bosco/Documents/revature/project2/spacepals/src/main/java/com/project2/spacepals/entities/Flight.java
 /Users/bosco/Documents/revature/project2/spacepals/src/main/java/com/project2/spacepals/exceptions/ResourceNotFoundException.java
+/Users/bosco/Documents/revature/project2/spacepals/src/main/java/com/project2/spacepals/web/controllers/FlightController.java
 /Users/bosco/Documents/revature/project2/spacepals/src/main/java/com/project2/spacepals/repositories/PlanetRepository.java
 /Users/bosco/Documents/revature/project2/spacepals/src/main/java/com/project2/spacepals/entities/FlightStatus.java
 /Users/bosco/Documents/revature/project2/spacepals/src/main/java/com/project2/spacepals/repositories/UserRepository.java
