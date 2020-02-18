@@ -14,6 +14,7 @@ com/project2/spacepals/exceptions/ResourcePersistenceException.class
 com/project2/spacepals/web/controllers/TestController.class
 com/project2/spacepals/entities/User.class
 com/project2/spacepals/exceptions/AuthorizationException.class
+com/project2/spacepals/web/controllers/FlightController.class
 com/project2/spacepals/repositories/FlightRepository.class
 com/project2/spacepals/entities/Role.class
 com/project2/spacepals/web/dtos/ErrorResponse.class

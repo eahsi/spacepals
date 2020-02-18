@@ -14,28 +14,31 @@ public class Flight implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne
-    private Aircraft aircraft;
-
-    @Column
+    @Column(nullable = false)
     private double duration;
-
-    @OneToOne
-    private Planet destination;
-
-    @OneToOne
-    private Planet departure;
 
     @Column(nullable = false)
     private double cost;
 
-    @Column
+    @Column(nullable = false)
     private Date date;
 
-    @Column
+    @Column(nullable = false)
     private int availableSeats;
 
-    @JoinTable(name = "USERS_FLIGHTS", joinColumns = @JoinColumn(name = "flight_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JoinColumn
+    @OneToOne
+    private Planet destination;
+
+    @JoinColumn
+    @OneToOne
+    private Planet departure;
+
+    @JoinColumn
+    @OneToOne
+    private Aircraft aircraft;
+
+    @JoinColumn
     @ManyToMany(cascade = CascadeType.ALL)
     private List<User> passengers;
 
