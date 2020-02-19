@@ -3,6 +3,7 @@ package com.project2.spacepals.repositories;
 import com.project2.spacepals.entities.Flight;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class FlightRepository implements CrudRepositories<Flight> {
 
     private SessionFactory sessionFactory;
 
+    @Autowired
     public FlightRepository(SessionFactory session){
         super();
         this.sessionFactory = session;
