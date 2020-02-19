@@ -24,9 +24,14 @@ public class FlightService {
         return flightRepository.save(newObj);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Flight> allFlights(){
         return flightRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Flight getFlightById(int id){
+        return flightRepository.findById(id);
     }
 
 }

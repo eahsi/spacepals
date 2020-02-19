@@ -9,13 +9,18 @@ import java.util.List;
 
 @Repository
 public class FlightRepository implements CrudRepositories<Flight> {
+
     private SessionFactory sessionFactory;
 
+    public FlightRepository(SessionFactory session){
+        super();
+        this.sessionFactory = session;
+    }
 
     @Override
     public List<Flight> findAll() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Flights", Flight.class).getResultList();
+        return session.createQuery("from Flight", Flight.class).getResultList();
     }
 
     @Override
@@ -33,18 +38,18 @@ public class FlightRepository implements CrudRepositories<Flight> {
 
     @Override
     public boolean update(Flight updatedObj) {
-        boolean updateSuccessful = false;
+        //boolean updateSuccessful = false;
         Session session = sessionFactory.getCurrentSession();
-        session.createQuery("update from Flights f where f.id = :id and f.available_seats = :seats",Flight.class)
+       session.createQuery("update from Flight f where f.id = :id and f.available_seats = :seats",Flight.class)
                 .setParameter("id", updatedObj.getId()).setParameter("seats",updatedObj.getAvailableSeats());
-        return updateSuccessful;
+       return true;
     }
 
     @Override
     public boolean deleteById(Flight deletedObj) {
         Session session = sessionFactory.getCurrentSession();
-        session.createQuery("delete from Flights f where f.id = :id",Flight.class)
+        session.createQuery("delete from Flight f where f.id = :id",Flight.class)
                 .setParameter("id",deletedObj.getId());
-        return false;
+        return true;
     }
 }
