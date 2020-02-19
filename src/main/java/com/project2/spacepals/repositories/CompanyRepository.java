@@ -24,7 +24,7 @@ public class CompanyRepository implements CrudRepositories<Company> {
     public List<Company> findAll() {
         Session session = sessionFactory.getCurrentSession();
 
-        return session.createQuery("from company",Company.class).getResultList();
+        return session.createQuery("from Company",Company.class).getResultList();
     }
 
     @Override
