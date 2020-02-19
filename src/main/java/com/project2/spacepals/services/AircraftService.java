@@ -1,6 +1,8 @@
 package com.project2.spacepals.services;
 
 import com.project2.spacepals.entities.Aircraft;
+import com.project2.spacepals.entities.Capacity;
+import com.project2.spacepals.entities.RentalStatus;
 import com.project2.spacepals.repositories.AircraftRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,8 @@ public class AircraftService {
 
     @Transactional
     public Aircraft saveAircraft(Aircraft newObj){
+        newObj.setStatus(RentalStatus.AVALABLE);
+        newObj.setCapacity(Capacity.MEDIUM);
         return aircraftRepository.save(newObj);
     }
 }

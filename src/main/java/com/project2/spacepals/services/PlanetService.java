@@ -31,6 +31,7 @@ public class PlanetService {
 
     @Transactional
     public Planet registerPlanet(Planet newObj){
+
         return planetRepository.save(newObj);
     }
 }
