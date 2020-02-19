@@ -22,7 +22,7 @@ public class LoggingAspect {
 
     @Before("logAll()")
     public void logMethodStart(JoinPoint jp) {
-        System.out.println("did the thing");
+//        System.out.println("did the thing");
         String methodSig = jp.getTarget().getClass().toString() + "." + jp.getSignature().getName();
         LOG.info("{} invoked at {}", methodSig, LocalTime.now());
         LOG.info("Input arguments: {}", Arrays.toString(jp.getArgs()));

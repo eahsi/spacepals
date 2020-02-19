@@ -3,12 +3,21 @@ package com.project2.spacepals.repositories;
 import com.project2.spacepals.entities.Company;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public class CompanyRepository implements CrudRepositories<Company> {
+
     private SessionFactory sessionFactory;
 
+    @Autowired
+    public CompanyRepository(SessionFactory factory){
+        super();
+        this.sessionFactory = factory;
+    }
 
 
     @Override

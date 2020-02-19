@@ -21,7 +21,7 @@ public class Flight implements Serializable {
     private double cost;
 
     @Column(nullable = false)
-    private Date date;
+    private Date flightDate;
 
     @Column(nullable = false)
     private int availableSeats;
@@ -50,26 +50,26 @@ public class Flight implements Serializable {
         super();
     }
 
-    public Flight(Aircraft aircraft, double duration, Planet destination, Planet departure, double cost, Date date, int availableSeats, List<User> passengers, FlightStatus status) {
+    public Flight(Aircraft aircraft, double duration, Planet destination, Planet departure, double cost, Date flightDate, int availableSeats, List<User> passengers, FlightStatus status) {
         this.aircraft = aircraft;
         this.duration = duration;
         this.destination = destination;
         this.departure = departure;
         this.cost = cost;
-        this.date = date;
+        this.flightDate = flightDate;
         this.availableSeats = availableSeats;
         this.passengers = passengers;
         this.status = status;
     }
 
-    public Flight(int id, Aircraft aircraft, double duration, Planet destination, Planet departure, double cost, Date date, int availableSeats, List<User> passengers, FlightStatus status) {
+    public Flight(int id, Aircraft aircraft, double duration, Planet destination, Planet departure, double cost, Date flightDate, int availableSeats, List<User> passengers, FlightStatus status) {
         this.id = id;
         this.aircraft = aircraft;
         this.duration = duration;
         this.destination = destination;
         this.departure = departure;
         this.cost = cost;
-        this.date = date;
+        this.flightDate = flightDate;
         this.availableSeats = availableSeats;
         this.passengers = passengers;
         this.status = status;
@@ -123,12 +123,12 @@ public class Flight implements Serializable {
         this.cost = cost;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getFlightDate() {
+        return flightDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setFlightDate(Date flightDate) {
+        this.flightDate = flightDate;
     }
 
     public int getAvailableSeats() {
@@ -167,14 +167,14 @@ public class Flight implements Serializable {
                 Objects.equals(getAircraft(), flight.getAircraft()) &&
                 Objects.equals(getDestination(), flight.getDestination()) &&
                 Objects.equals(getDeparture(), flight.getDeparture()) &&
-                Objects.equals(getDate(), flight.getDate()) &&
+                Objects.equals(getFlightDate(), flight.getFlightDate()) &&
                 Objects.equals(getPassengers(), flight.getPassengers()) &&
                 getStatus() == flight.getStatus();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getAircraft(), getDuration(), getDestination(), getDeparture(), getCost(), getDate(), getAvailableSeats(), getPassengers(), getStatus());
+        return Objects.hash(getId(), getAircraft(), getDuration(), getDestination(), getDeparture(), getCost(), getFlightDate(), getAvailableSeats(), getPassengers(), getStatus());
     }
 
     @Override
@@ -186,7 +186,7 @@ public class Flight implements Serializable {
                 ", destination=" + destination +
                 ", departure=" + departure +
                 ", cost=" + cost +
-                ", date=" + date +
+                ", date=" + flightDate +
                 ", availableSeats=" + availableSeats +
                 ", passengers=" + passengers +
                 ", status=" + status +

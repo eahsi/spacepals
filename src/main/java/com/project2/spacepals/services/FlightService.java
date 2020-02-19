@@ -1,6 +1,7 @@
 package com.project2.spacepals.services;
 
 import com.project2.spacepals.entities.Flight;
+import com.project2.spacepals.entities.FlightStatus;
 import com.project2.spacepals.repositories.FlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,12 +22,18 @@ public class FlightService {
 
     @Transactional
     public Flight register(Flight newObj){
+        newObj.setStatus(FlightStatus.OPEN);
         return flightRepository.save(newObj);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Flight> allFlights(){
         return flightRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Flight getFlightById(int id){
+        return flightRepository.findById(id);
     }
 
 }
