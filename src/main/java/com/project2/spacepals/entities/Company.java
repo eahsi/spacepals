@@ -1,7 +1,12 @@
 package com.project2.spacepals.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,28 +24,39 @@ public class Company implements Serializable {
     @Column(nullable = false, unique = true)
     private String address;
 
-    @JoinColumn
-    @OneToOne(cascade = CascadeType.ALL)
-    private User manager;
+//    @JoinColumn
+//    @ManyToOne(cascade={
+//            CascadeType.REMOVE, CascadeType.DETACH,
+//            CascadeType.MERGE, CascadeType.PERSIST
+//    })
+//    @JsonIgnore
+//    private User manager;
 
     @JoinColumn
     @OneToMany
+    @Fetch(FetchMode.JOIN)
     private List<Aircraft> aircrafts;
 
     public Company() {
         super();
     }
 
-    public Company(String name, String address, User manager) {
+    public Company(String name, String address) {
         this.name = name;
         this.address = address;
-        this.manager = manager;
     }
 
-    public Company(String name, String address, User manager, List<Aircraft> aircrafts) {
+    public Company(String name, String address, List<Aircraft> aircrafts) {
         this.name = name;
         this.address = address;
-        this.manager = manager;
+        this.aircrafts = aircrafts;
+    }
+
+    public Company(int id, String name, String address, List<Aircraft> aircrafts) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+//        this.manager = manager;
         this.aircrafts = aircrafts;
     }
 
@@ -68,13 +84,13 @@ public class Company implements Serializable {
         this.address = address;
     }
 
-    public User getManager() {
-        return manager;
-    }
-
-    public void setManager(User manager) {
-        this.manager = manager;
-    }
+//    public User getManager() {
+//        return manager;
+//    }
+//
+//    public void setManager(User manager) {
+//        this.manager = manager;
+//    }
 
     public List<Aircraft> getAircrafts() {
         return aircrafts;
@@ -82,6 +98,13 @@ public class Company implements Serializable {
 
     public void setAircrafts(List<Aircraft> aircrafts) {
         this.aircrafts = aircrafts;
+    }
+
+    public void addAircraft(Aircraft aircraft){
+        if(aircrafts == null) aircrafts = new ArrayList<>();
+            //aircraft.setOwner(this);
+            aircrafts.add(aircraft);
+
     }
 
     @Override
@@ -92,13 +115,12 @@ public class Company implements Serializable {
         return getId() == company.getId() &&
                 Objects.equals(getName(), company.getName()) &&
                 Objects.equals(getAddress(), company.getAddress()) &&
-                Objects.equals(getManager(), company.getManager()) &&
                 Objects.equals(getAircrafts(), company.getAircrafts());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getAddress(), getManager(), getAircrafts());
+        return Objects.hash(getId(), getName(), getAddress(), getAircrafts());
     }
 
     @Override
@@ -107,8 +129,8 @@ public class Company implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
-                ", manager=" + manager +
                 ", aircrafts=" + aircrafts +
+               // ", manager =" + manager +
                 '}';
     }
 }

@@ -18,7 +18,7 @@ public class CompanyController {
     private CompanyService companyService;
 
     @Autowired
-    public CompanyController (CompanyService service){
+    public CompanyController(CompanyService service){
         super();
         this.companyService = service;
     }

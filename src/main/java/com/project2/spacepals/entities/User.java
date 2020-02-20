@@ -1,8 +1,14 @@
 package com.project2.spacepals.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project2.spacepals.web.dtos.Principal;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,8 +44,15 @@ public class User {
     @Enumerated(EnumType.ORDINAL)
     private Role role;
 
+    @JoinColumn
+//    @JoinTable(
+//            name="user_companies",
+//            joinColumns=@JoinColumn(name="user_id"),
+//            inverseJoinColumns=@JoinColumn(name="company_id")
+//    )
     @OneToMany
-    private List<Company> company;
+    @Fetch(FetchMode.JOIN)
+    private List<Company> companies;
 
     public User(){
         super();
@@ -66,7 +79,7 @@ public class User {
         this.role = role;
     }
 
-    public User(int id, String firstName, String lastName, String email, String password, Planet residency, String gender, int frequentFlyerPoints, Role role, List<Company> company) {
+    public User(int id, String firstName, String lastName, String email, String password, Planet residency, String gender, int frequentFlyerPoints, Role role, List<Company> companies) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -76,7 +89,7 @@ public class User {
         this.gender = gender;
         this.frequentFlyerPoints = frequentFlyerPoints;
         this.role = role;
-        this.company = company;
+        this.companies = companies;
     }
 
     public int getId() {
@@ -151,12 +164,18 @@ public class User {
         this.role = role;
     }
 
-    public List<Company> getCompany() {
-        return company;
+    public List<Company> getCompanies() {
+        return companies;
     }
 
-    public void setCompany(List<Company> company) {
-        this.company = company;
+    public void setCompanies(List<Company> companies) {
+        this.companies = companies;
+    }
+
+    public void addCompany(Company comp){
+        if(companies == null) companies = new ArrayList<>();
+        //comp.setManager(this);
+        companies.add(comp);
     }
 
     public Principal extractPrincipal() {
@@ -177,12 +196,12 @@ public class User {
                 Objects.equals(getResidency(), user.getResidency()) &&
                 Objects.equals(getGender(), user.getGender()) &&
                 getRole() == user.getRole() &&
-                Objects.equals(getCompany(), user.getCompany());
+                Objects.equals(getCompanies(), user.getCompanies());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFirstName(), getLastName(), getEmail(), getPassword(), getResidency(), getGender(), getFrequentFlyerPoints(), getRole(), getCompany());
+        return Objects.hash(getId(), getFirstName(), getLastName(), getEmail(), getPassword(), getResidency(), getGender(), getFrequentFlyerPoints(), getRole(), getCompanies());
     }
 
     @Override
@@ -197,7 +216,7 @@ public class User {
                 ", gender='" + gender + '\'' +
                 ", frequentFlyerPoints=" + frequentFlyerPoints +
                 ", role=" + role +
-                ", company=" + company +
+                ", company=" + companies +
                 '}';
     }
 }
