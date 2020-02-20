@@ -7,17 +7,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -91,19 +88,4 @@ public class AppConfig implements WebMvcConfigurer, WebApplicationInitializer {
         dispatcher.addMapping("/");
     }
 
-//    @Value( "${app.allow.origins}" )
-//    private String allowOrigins;
-//    @Bean
-//    public WebMvcConfigurer corsConfigurer() {
-//        System.out.println("allow origin: "+allowOrigins);
-//        return new WebMvcConfigurerAdapter() {
-//            @Override
-//            public void addCorsMappings(CorsRegistry registry) {
-//                registry.addMapping("/**")
-//                        //.allowedOrigins("http://localhost")
-//                        .allowedOrigins(allowOrigins)
-//                        .allowedMethods("PUT", "DELETE","GET", "POST");
-//            }
-//        };
-//    }
 }

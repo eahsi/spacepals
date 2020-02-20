@@ -35,7 +35,7 @@ public class User {
     @OneToOne
     private Planet residency;
 
-    @Column(name = "gender", nullable = false)
+    @Column(name = "gender")
     private String gender;
 
     @Column

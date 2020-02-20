@@ -1,5 +1,8 @@
 package com.project2.spacepals.entities;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -40,6 +43,7 @@ public class Flight implements Serializable {
 
     @JoinColumn
     @ManyToMany(cascade = CascadeType.ALL)
+    @Fetch(FetchMode.JOIN)
     private List<User> passengers;
 
     @Enumerated(EnumType.STRING)
