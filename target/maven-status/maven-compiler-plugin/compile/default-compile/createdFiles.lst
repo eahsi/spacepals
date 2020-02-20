@@ -4,6 +4,7 @@ com/project2/spacepals/repositories/CompanyRepository.class
 com/project2/spacepals/web/controllers/UserController.class
 com/project2/spacepals/exceptions/AuthenticationException.class
 com/project2/spacepals/entities/Capacity.class
+com/project2/spacepals/web/dtos/ShipDto.class
 com/project2/spacepals/AppConfig.class
 com/project2/spacepals/web/controllers/AuthController.class
 com/project2/spacepals/services/FlightService.class
@@ -14,6 +15,7 @@ com/project2/spacepals/exceptions/ResourcePersistenceException.class
 com/project2/spacepals/web/controllers/TestController.class
 com/project2/spacepals/web/controllers/AircraftController.class
 com/project2/spacepals/entities/User.class
+com/project2/spacepals/web/dtos/FlightDto.class
 com/project2/spacepals/exceptions/AuthorizationException.class
 com/project2/spacepals/web/controllers/FlightController.class
 com/project2/spacepals/repositories/FlightRepository.class

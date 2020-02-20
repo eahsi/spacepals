@@ -1,11 +1,16 @@
 package com.project2.spacepals.repositories;
 
+import com.project2.spacepals.entities.Aircraft;
+import com.project2.spacepals.entities.Company;
 import com.project2.spacepals.entities.Flight;
+import com.project2.spacepals.entities.Planet;
+import com.project2.spacepals.web.dtos.FlightDto;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -53,5 +58,29 @@ public class FlightRepository implements CrudRepositories<Flight> {
         session.createQuery("delete from Flight f where f.id = :id",Flight.class)
                 .setParameter("id",deletedObj.getId());
         return true;
+    }
+
+    public Flight realSave(FlightDto flightdto) {
+        Session session = sessionFactory.getCurrentSession();
+//        CompanyRepository cr = new CompanyRepository(sessionFactory);
+//        Company company = cr.findById(flightdto.getCompanyId());
+        PlanetRepository pr = new PlanetRepository(sessionFactory);
+//        Planet dept = pr.findById(flightdto.);
+
+        //placeholder
+            flightdto.getFlight().setDeparture(pr.findById(0));
+            flightdto.getFlight().setDestination(pr.findById(1));
+            flightdto.getFlight().setDuration(
+                    flightdto.getFlight().getDeparture().getDistanceFromEarth() -
+                            flightdto.getFlight().getDestination().getDistanceFromEarth());
+        //placeholder end
+        Date date = new Date();
+        flightdto.getFlight().setFlightDate(date);
+        AircraftRepository ar = new AircraftRepository(sessionFactory);
+        Aircraft aircraft = ar.findById(flightdto.getShipId());
+        //aircraft.addFlight(flightdto.getFlight());
+        flightdto.getFlight().setAircraft(aircraft);
+        session.save(flightdto.getFlight());
+        return flightdto.getFlight();
     }
 }

@@ -3,6 +3,7 @@ package com.project2.spacepals.web.controllers;
 
 import com.project2.spacepals.entities.Flight;
 import com.project2.spacepals.services.FlightService;
+import com.project2.spacepals.web.dtos.FlightDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,8 +25,8 @@ public class FlightController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Flight registerFlight(@RequestBody Flight flight){
-        return flightService.register(flight);
+    public Flight registerFlight(@RequestBody FlightDto flightdto){
+        return flightService.register(flightdto);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

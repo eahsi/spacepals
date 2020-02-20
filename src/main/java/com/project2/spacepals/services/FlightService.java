@@ -3,6 +3,7 @@ package com.project2.spacepals.services;
 import com.project2.spacepals.entities.Flight;
 import com.project2.spacepals.entities.FlightStatus;
 import com.project2.spacepals.repositories.FlightRepository;
+import com.project2.spacepals.web.dtos.FlightDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,9 +22,9 @@ public class FlightService {
     }
 
     @Transactional
-    public Flight register(Flight newObj){
-        newObj.setStatus(FlightStatus.OPEN);
-        return flightRepository.save(newObj);
+    public Flight register(FlightDto flightdto){
+        flightdto.getFlight().setStatus(FlightStatus.OPEN);
+        return flightRepository.realSave(flightdto);
     }
 
     @Transactional(readOnly = true)

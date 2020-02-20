@@ -4,6 +4,7 @@ import com.project2.spacepals.entities.Aircraft;
 import com.project2.spacepals.entities.Capacity;
 import com.project2.spacepals.entities.RentalStatus;
 import com.project2.spacepals.repositories.AircraftRepository;
+import com.project2.spacepals.web.dtos.ShipDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,9 +33,10 @@ public class AircraftService {
     }
 
     @Transactional
-    public Aircraft saveAircraft(Aircraft newObj){
-        newObj.setStatus(RentalStatus.AVALABLE);
-        newObj.setCapacity(Capacity.MEDIUM);
-        return aircraftRepository.save(newObj);
+    public Aircraft saveAircraft(ShipDto shipdto){
+        shipdto.getAircraft().setStatus(RentalStatus.AVALABLE);
+        shipdto.getAircraft().setCapacity(Capacity.MEDIUM);
+        shipdto.getAircraft().setRate(0);
+        return aircraftRepository.saveToCompany(shipdto);
     }
 }
