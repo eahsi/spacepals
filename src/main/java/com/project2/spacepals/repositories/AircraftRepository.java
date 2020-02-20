@@ -1,7 +1,9 @@
 package com.project2.spacepals.repositories;
 
 import com.project2.spacepals.entities.Aircraft;
+import com.project2.spacepals.entities.Company;
 import com.project2.spacepals.entities.Flight;
+import com.project2.spacepals.web.dtos.ShipDto;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +37,19 @@ public class AircraftRepository implements CrudRepositories<Aircraft> {
     }
 
     @Override
-    public Aircraft save(Aircraft newObj) {
+    public Aircraft save(Aircraft newobj) {
         Session session = sessionFactory.getCurrentSession();
-        session.save(newObj);
-        return newObj;
+        session.save(newobj);
+        return newobj;
+    }
+
+    public Aircraft saveToCompany(ShipDto shipdto) {
+        Session session = sessionFactory.getCurrentSession();
+        CompanyRepository cr = new CompanyRepository(sessionFactory);
+        Company company = cr.findById(shipdto.getId());
+        company.addAircraft(shipdto.getAircraft());
+        session.save(shipdto.getAircraft());
+        return shipdto.getAircraft();
     }
 
     @Override
