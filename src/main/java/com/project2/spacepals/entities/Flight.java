@@ -1,5 +1,6 @@
 package com.project2.spacepals.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -43,7 +44,7 @@ public class Flight implements Serializable {
 
     @JoinColumn
     @ManyToMany(cascade = CascadeType.ALL)
-    @Fetch(FetchMode.JOIN)
+    @JsonIgnore
     private List<User> passengers;
 
     @Enumerated(EnumType.STRING)
