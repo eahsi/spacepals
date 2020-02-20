@@ -62,24 +62,28 @@ public class FlightRepository implements CrudRepositories<Flight> {
 
     public Flight realSave(FlightDto flightdto) {
         Session session = sessionFactory.getCurrentSession();
+        System.out.println("\n\n\n\n\n\nHELP\n\n\n\n\n\n\n");
 //        CompanyRepository cr = new CompanyRepository(sessionFactory);
 //        Company company = cr.findById(flightdto.getCompanyId());
         PlanetRepository pr = new PlanetRepository(sessionFactory);
 //        Planet dept = pr.findById(flightdto.);
 
         //placeholder
-            flightdto.getFlight().setDeparture(pr.findById(0));
+            flightdto.getFlight().setDeparture(pr.findById(2));
             flightdto.getFlight().setDestination(pr.findById(1));
             flightdto.getFlight().setDuration(
                     flightdto.getFlight().getDeparture().getDistanceFromEarth() -
                             flightdto.getFlight().getDestination().getDistanceFromEarth());
         //placeholder end
+
         Date date = new Date();
         flightdto.getFlight().setFlightDate(date);
         AircraftRepository ar = new AircraftRepository(sessionFactory);
         Aircraft aircraft = ar.findById(flightdto.getShipId());
         //aircraft.addFlight(flightdto.getFlight());
+        flightdto.getFlight().setAvailableSeats(aircraft.getCapacity().getCapacity());
         flightdto.getFlight().setAircraft(aircraft);
+        System.out.println("\n\n\n\n\n\n" + flightdto.getFlight() + "\n\n\n\n\n\n\n");
         session.save(flightdto.getFlight());
         return flightdto.getFlight();
     }
