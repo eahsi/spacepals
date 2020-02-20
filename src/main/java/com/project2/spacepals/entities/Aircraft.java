@@ -1,5 +1,7 @@
 package com.project2.spacepals.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -24,6 +26,7 @@ public class Aircraft implements Serializable {
             CascadeType.REMOVE, CascadeType.DETACH,
             CascadeType.MERGE, CascadeType.PERSIST
     })
+    @JsonIgnore
     private Company owner;
 
     @Enumerated(EnumType.STRING)
@@ -36,7 +39,7 @@ public class Aircraft implements Serializable {
         super();
     }
 
-    public Aircraft(String name, double rate, Company owner, Capacity capacity, RentalStatus status) {
+    public Aircraft(String name, double rate, Capacity capacity, Company owner, RentalStatus status) {
         this.name = name;
         this.rate = rate;
         this.owner = owner;
@@ -44,14 +47,6 @@ public class Aircraft implements Serializable {
         this.status = status;
     }
 
-    public Aircraft(int id, String name, double rate, Company owner, Capacity capacity, RentalStatus status) {
-        this.id = id;
-        this.name = name;
-        this.rate = rate;
-        this.owner = owner;
-        this.capacity = capacity;
-        this.status = status;
-    }
 
     public int getId() {
         return id;
@@ -116,7 +111,7 @@ public class Aircraft implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getRate(), getOwner(), getCapacity(), getStatus());
+        return Objects.hash(getId(), getName(), getRate(), getCapacity(), getStatus());
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.project2.spacepals.services;
 
+import com.project2.spacepals.entities.Company;
 import com.project2.spacepals.entities.Role;
 import com.project2.spacepals.entities.User;
 import com.project2.spacepals.exceptions.AuthenticationException;
@@ -50,5 +51,12 @@ public class UserService  {
         newUser.setRole(Role.BASIC_USER);
         return userRepo.save(newUser);
 
+    }
+
+    // method to add a company to an existing user.
+
+    @Transactional
+    public Company addCompany(Company comp){
+        return userRepo.addCompany(comp);
     }
 }

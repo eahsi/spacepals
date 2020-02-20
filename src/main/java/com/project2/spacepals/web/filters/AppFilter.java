@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-@WebFilter("/")
+@WebFilter("/*")
 public class AppFilter extends OncePerRequestFilter {
 
     @Override
@@ -21,6 +21,7 @@ public class AppFilter extends OncePerRequestFilter {
     }
 
     private void applyCorsFilter(HttpServletResponse resp) {
+        //resp.setHeader("Access-Control-Allow-Origin", "http://localhost:3000/register");
         resp.setHeader("Access-Control-Allow-Origin", "*");
         resp.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
         resp.setHeader("Access-Control-Allow-Headers", "Content-type");

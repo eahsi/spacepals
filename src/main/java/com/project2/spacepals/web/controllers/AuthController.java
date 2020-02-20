@@ -1,5 +1,7 @@
 package com.project2.spacepals.web.controllers;
 
+import com.project2.spacepals.AppConfig;
+import com.project2.spacepals.entities.User;
 import com.project2.spacepals.web.dtos.Principal;
 import com.project2.spacepals.services.UserService;
 import com.project2.spacepals.web.dtos.Credentials;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.awt.*;
 
 @RestController
@@ -26,10 +30,17 @@ public class AuthController {
     }
 
     @PostMapping(produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-    public Principal authenticate(@RequestBody Credentials creds, HttpServletResponse resp) {
+            public User authenticate(@RequestBody Credentials creds, HttpServletResponse resp){
+    //public Principal authenticate(@RequestBody Credentials creds, HttpServletResponse resp, HttpServletRequest req) {
         Principal payload = userService.authenticate(creds).extractPrincipal();
         //resp.setHeader(JwtConfig.HEADER, JwtGenerator.createJwt(payload));
-        return payload;
+        //HttpSession session = req.getSession(false);
+       // User currentUser = session.setAttribute("user", userService.authenticate(creds));
+      User u = userService.authenticate(creds);
+
+      AppConfig.currentUser = u;
+        //return payload;
+        return u;
     }
 
 }

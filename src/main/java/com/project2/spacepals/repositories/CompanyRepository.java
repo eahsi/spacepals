@@ -10,8 +10,9 @@ import java.util.List;
 
 @Repository
 public class CompanyRepository implements CrudRepositories<Company> {
-
     private SessionFactory sessionFactory;
+
+
 
     @Autowired
     public CompanyRepository(SessionFactory factory){
@@ -20,10 +21,11 @@ public class CompanyRepository implements CrudRepositories<Company> {
     }
 
 
+
+
     @Override
     public List<Company> findAll() {
         Session session = sessionFactory.getCurrentSession();
-
         return session.createQuery("from Company",Company.class).getResultList();
     }
 

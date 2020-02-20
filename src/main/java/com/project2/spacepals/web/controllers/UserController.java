@@ -1,5 +1,6 @@
 package com.project2.spacepals.web.controllers;
 
+import com.project2.spacepals.entities.Company;
 import com.project2.spacepals.entities.User;
 import com.project2.spacepals.exceptions.AuthenticationException;
 import com.project2.spacepals.exceptions.AuthorizationException;
@@ -35,6 +36,12 @@ import java.util.List;
         @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
         public User registerNewUser(@RequestBody User newUser) {
             return userService.register(newUser);
+        }
+
+        // method to add a company to an existing user. This happens when a user creates a company.
+        @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+        public Company addCompany(@RequestBody Company comp){
+            return userService.addCompany(comp);
         }
 
 
