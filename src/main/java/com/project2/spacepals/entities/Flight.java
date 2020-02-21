@@ -1,9 +1,6 @@
 package com.project2.spacepals.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -39,7 +36,11 @@ public class Flight implements Serializable {
     private Planet departure;
 
     @JoinColumn
-    @OneToOne
+    @ManyToOne(cascade={
+            CascadeType.REMOVE, CascadeType.DETACH,
+            CascadeType.MERGE, CascadeType.PERSIST
+    })
+    @JsonIgnore
     private Aircraft aircraft;
 
     @JoinColumn
