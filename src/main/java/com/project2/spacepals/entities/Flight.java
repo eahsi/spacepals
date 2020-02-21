@@ -1,7 +1,6 @@
 package com.project2.spacepals.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -46,6 +45,7 @@ public class Flight implements Serializable {
 
     @JoinColumn
     @ManyToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<User> passengers;
 
     @Enumerated(EnumType.STRING)
