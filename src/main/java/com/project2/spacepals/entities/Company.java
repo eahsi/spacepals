@@ -3,6 +3,8 @@ package com.project2.spacepals.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -34,7 +36,7 @@ public class Company implements Serializable {
 
     @JoinColumn
     @OneToMany
-    @Fetch(FetchMode.JOIN)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Aircraft> aircrafts;
 
     public Company() {
