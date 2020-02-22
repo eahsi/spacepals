@@ -38,6 +38,12 @@ public class PlanetRepository implements CrudRepositories<Planet> {
         return newObj;
     }
 
+    public Planet findByName(String name) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("from Planet p where p.planetName = :name", Planet.class)
+                .setParameter("name", name).getSingleResult();
+    }
+
     @Override
     public boolean update(Planet updatedObj) {
         //boolean updateSuccessful = false;

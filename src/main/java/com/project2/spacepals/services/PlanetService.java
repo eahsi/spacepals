@@ -34,4 +34,9 @@ public class PlanetService {
 
         return planetRepository.save(newObj);
     }
+
+    @Transactional
+    public Planet getByName(String name) {
+        return planetRepository.findByName(name);
+    }
 }
