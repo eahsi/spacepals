@@ -36,7 +36,7 @@ public class FlightController {
         return flightService.allFlights();
     }
 
-    @ResponseStatus(HttpStatus.OK)
+   // @ResponseStatus(HttpStatus.OK)
     @GetMapping(value= "/{id}", produces= MediaType.APPLICATION_JSON_VALUE)
     public Flight getFlightById(@PathVariable int id){
         return flightService.getFlightById(id);
