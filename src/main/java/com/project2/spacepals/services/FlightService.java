@@ -2,6 +2,7 @@ package com.project2.spacepals.services;
 
 import com.project2.spacepals.entities.Flight;
 import com.project2.spacepals.entities.FlightStatus;
+import com.project2.spacepals.entities.User;
 import com.project2.spacepals.repositories.FlightRepository;
 import com.project2.spacepals.web.dtos.FlightDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,16 @@ public class FlightService {
     @Transactional(readOnly = true)
     public Flight getFlightById(int id){
         return flightRepository.findById(id);
+    }
+
+    @Transactional
+    public Flight addFlightPassengers(int id){
+        return flightRepository.addPassengers(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> getPassengers(int flightId){
+        return flightRepository.getAllPassengers(flightId);
     }
 
 }

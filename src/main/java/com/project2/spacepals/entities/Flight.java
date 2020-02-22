@@ -1,8 +1,14 @@
 package com.project2.spacepals.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -44,8 +50,8 @@ public class Flight implements Serializable {
     private Aircraft aircraft;
 
     @JoinColumn
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JsonIgnore
+    @OneToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<User> passengers;
 
     @Enumerated(EnumType.STRING)
@@ -159,6 +165,11 @@ public class Flight implements Serializable {
 
     public void setStatus(FlightStatus status) {
         this.status = status;
+    }
+
+    public void addPassenger(User u){
+        if(this.passengers == null) passengers = new ArrayList<>();
+        passengers.add(u);
     }
 
     @Override

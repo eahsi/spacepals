@@ -1,9 +1,7 @@
 package com.project2.spacepals.repositories;
 
-import com.project2.spacepals.entities.Aircraft;
-import com.project2.spacepals.entities.Company;
-import com.project2.spacepals.entities.Flight;
-import com.project2.spacepals.entities.Planet;
+import com.project2.spacepals.AppConfig;
+import com.project2.spacepals.entities.*;
 import com.project2.spacepals.web.dtos.FlightDto;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -86,5 +84,24 @@ public class FlightRepository implements CrudRepositories<Flight> {
         System.out.println("\n\n\n\n\n\n" + flightdto.getFlight() + "\n\n\n\n\n\n\n");
         session.save(flightdto.getFlight());
         return flightdto.getFlight();
+    }
+
+    public Flight addPassengers(int id){
+
+            Session session = sessionFactory.getCurrentSession();
+            Flight flight = findById(id);
+            flight.addPassenger(AppConfig.currentUser);
+            flight.setAvailableSeats(flight.getAvailableSeats() - 1);
+
+            session.update(flight);
+
+            return flight;
+    }
+
+    // method to get passengers from a flight.
+    public List<User> getAllPassengers(int flightId){
+        Session session = sessionFactory.getCurrentSession();
+        Flight flight = findById(flightId);
+        return flight.getPassengers();
     }
 }
