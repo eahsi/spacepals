@@ -7,6 +7,8 @@ import java.util.Objects;
 public class FlightDto {
     private int companyId;
     private int shipId;
+    private String deptName;
+    private String destName;
     private Flight flight;
 
     public FlightDto() {
@@ -15,6 +17,14 @@ public class FlightDto {
     public FlightDto(int companyId, int shipId, Flight flight) {
         this.companyId = companyId;
         this.shipId = shipId;
+        this.flight = flight;
+    }
+
+    public FlightDto(int companyId, int shipId, String deptName, String destName, Flight flight) {
+        this.companyId = companyId;
+        this.shipId = shipId;
+        this.deptName = deptName;
+        this.destName = destName;
         this.flight = flight;
     }
 
@@ -42,6 +52,22 @@ public class FlightDto {
         this.flight = flight;
     }
 
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
+    public String getDestName() {
+        return destName;
+    }
+
+    public void setDestName(String destName) {
+        this.destName = destName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,12 +75,14 @@ public class FlightDto {
         FlightDto flightDto = (FlightDto) o;
         return companyId == flightDto.companyId &&
                 shipId == flightDto.shipId &&
+                Objects.equals(deptName, flightDto.deptName) &&
+                Objects.equals(destName, flightDto.destName) &&
                 Objects.equals(flight, flightDto.flight);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(companyId, shipId, flight);
+        return Objects.hash(companyId, shipId, deptName, destName, flight);
     }
 
     @Override
@@ -62,6 +90,8 @@ public class FlightDto {
         return "FlightDto{" +
                 "companyId=" + companyId +
                 ", shipId=" + shipId +
+                ", deptName='" + deptName + '\'' +
+                ", destName='" + destName + '\'' +
                 ", flight=" + flight +
                 '}';
     }

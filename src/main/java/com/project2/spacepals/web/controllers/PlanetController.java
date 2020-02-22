@@ -36,4 +36,7 @@ public class PlanetController {
     public Planet registerPlanet(@RequestBody Planet planet){
         return planetService.registerPlanet(planet);
     }
+
+    @GetMapping(value="/byname/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Planet getPlanetbyName(@PathVariable String name) { return planetService.getByName(name);}
 }
