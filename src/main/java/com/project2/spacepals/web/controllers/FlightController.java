@@ -4,6 +4,7 @@ package com.project2.spacepals.web.controllers;
 import com.project2.spacepals.entities.Flight;
 import com.project2.spacepals.entities.User;
 import com.project2.spacepals.services.FlightService;
+import com.project2.spacepals.web.dtos.AddPassengerDtos;
 import com.project2.spacepals.web.dtos.FlightDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,9 +44,9 @@ public class FlightController {
 
 
     // controller to book a flight
-    @PutMapping(value= "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Flight addPassenger(@PathVariable int id){
-        return flightService.addFlightPassengers(id);
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Flight addPassenger(@RequestBody AddPassengerDtos data){
+        return flightService.addFlightPassengers(data.getId());
     }
 
     // controller to get all passengers from a flight
