@@ -44,9 +44,9 @@ public class FlightController {
 
 
     // controller to book a flight
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Flight addPassenger(@RequestBody AddPassengerDtos data){
-        return flightService.addFlightPassengers(data.getId());
+    @PutMapping(value = "/book/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Flight addPassenger(@PathVariable int id){
+        return flightService.addFlightPassengers(id);
     }
 
     // controller to get all passengers from a flight
