@@ -9,6 +9,7 @@ com/project2/spacepals/AppConfig.class
 com/project2/spacepals/web/controllers/AuthController.class
 com/project2/spacepals/services/FlightService.class
 com/project2/spacepals/services/CompanyService.class
+com/project2/spacepals/web/dtos/AddPassengerDtos.class
 com/project2/spacepals/services/PlanetService.class
 com/project2/spacepals/exceptions/SpacePalsException.class
 com/project2/spacepals/exceptions/ResourcePersistenceException.class

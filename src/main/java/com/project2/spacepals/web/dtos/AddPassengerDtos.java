@@ -5,6 +5,10 @@ import java.util.Objects;
 public class AddPassengerDtos {
     private int id;
 
+    public AddPassengerDtos() {
+        super();
+    }
+
     public AddPassengerDtos(int id) {
         this.id = id;
     }
