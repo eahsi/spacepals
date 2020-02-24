@@ -6,6 +6,7 @@ import com.project2.spacepals.entities.Company;
 import com.project2.spacepals.entities.Flight;
 import com.project2.spacepals.entities.Planet;
 import com.project2.spacepals.entities.*;
+import com.project2.spacepals.web.dtos.DtoFlight;
 import com.project2.spacepals.web.dtos.FlightDto;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -40,7 +41,23 @@ public class FlightRepository implements CrudRepositories<Flight> {
 
     @Override
     public Flight save(Flight newObj) {
+        return null;
+    }
+
+    public Flight saveFlight(Flight newObj, DtoFlight dtoFlight) {
         Session session = sessionFactory.getCurrentSession();
+
+        PlanetRepository pr = new PlanetRepository(sessionFactory);
+        newObj.setDeparture(pr.findById(dtoFlight.getDeparture()));
+        newObj.setDestination(pr.findById(dtoFlight.getDestination()));
+
+        AircraftRepository aircraftRepository = new AircraftRepository(sessionFactory);
+        newObj.setAircraft(aircraftRepository.findById(dtoFlight.getAircraftId()));
+
+        Date todaysDate = new Date();
+        newObj.setFlightDate(todaysDate);
+
+
         session.save(newObj);
         return newObj;
     }

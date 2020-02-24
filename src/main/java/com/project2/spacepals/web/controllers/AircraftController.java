@@ -2,6 +2,7 @@ package com.project2.spacepals.web.controllers;
 
 import com.project2.spacepals.entities.Aircraft;
 import com.project2.spacepals.services.AircraftService;
+import com.project2.spacepals.web.dtos.AircraftDto;
 import com.project2.spacepals.web.dtos.ShipDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -33,8 +34,9 @@ public class AircraftController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Aircraft registerAircraft(@RequestBody ShipDto shipdto){
-       return aircraftService.saveAircraft(shipdto);
+    public Aircraft registerAircraft(@RequestBody AircraftDto aircraftDto){
+
+        return aircraftService.saveAircraft(aircraftDto);
     }
 
 }

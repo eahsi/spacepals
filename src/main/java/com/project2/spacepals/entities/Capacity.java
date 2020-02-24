@@ -34,6 +34,15 @@ public enum Capacity {
         return Capacity.SMALL;
     }
 
+    public static Capacity getByName(String capacity){
+        for(Capacity cap: Capacity.values()){
+            if(cap.name == capacity){
+                return cap;
+            }
+        }
+        return Capacity.SMALL;
+    }
+
     @Override
     public String toString() {
         return "Capacity{" +
