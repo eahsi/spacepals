@@ -3,6 +3,7 @@ package com.project2.spacepals.repositories;
 import com.project2.spacepals.entities.Aircraft;
 import com.project2.spacepals.entities.Company;
 import com.project2.spacepals.entities.Flight;
+import com.project2.spacepals.web.dtos.AircraftDto;
 import com.project2.spacepals.web.dtos.ShipDto;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -43,13 +44,12 @@ public class AircraftRepository implements CrudRepositories<Aircraft> {
         return newobj;
     }
 
-    public Aircraft saveToCompany(ShipDto shipdto) {
+    public void saveToCompany(AircraftDto aircraftDto, Aircraft aircraft) {
         Session session = sessionFactory.getCurrentSession();
         CompanyRepository cr = new CompanyRepository(sessionFactory);
-        Company company = cr.findById(shipdto.getId());
-        company.addAircraft(shipdto.getAircraft());
-        session.save(shipdto.getAircraft());
-        return shipdto.getAircraft();
+        Company company = cr.findById(aircraftDto.getCompanyId());
+        company.addAircraft(aircraft);
+        session.update(company);
     }
 
     @Override

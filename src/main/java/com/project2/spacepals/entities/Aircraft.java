@@ -1,10 +1,7 @@
 package com.project2.spacepals.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 
@@ -12,51 +9,40 @@ import java.util.Objects;
 @Table(name = "AIRCRAFTS")
 public class Aircraft implements Serializable {
 
-    @Id
-    @Column
+    @Id @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(nullable = false, unique = true)
+    private double rate;
+
+    @Column(nullable = false, unique = true)
     private String name;
-
-
-    @JoinColumn
-    @ManyToOne(cascade = {
-            CascadeType.REMOVE, CascadeType.DETACH,
-            CascadeType.MERGE, CascadeType.PERSIST
-    })
-    @JsonIgnore
-    private Company owner;
-    /*
-    @JoinColumn
-    @OneToMany
-    @Fetch(FetchMode.JOIN)
-    @JsonIgnore
-    private List<Flight> flights;
-
-     */
 
     @Enumerated(EnumType.STRING)
     private Capacity capacity;
-
 
     public Aircraft() {
         super();
     }
 
-    public Aircraft(String name, Capacity capacity, Company owner) {
+    public Aircraft(String name, Capacity capacity) {
         this.name = name;
-        this.owner = owner;
         this.capacity = capacity;
     }
 
     public Aircraft(int id, String name, Company owner, Capacity capacity) {
         this.id = id;
         this.name = name;
-        this.owner = owner;
         this.capacity = capacity;
     }
+
+    public Aircraft(String name, Capacity capacity, double rate) {
+        this.name = name;
+        this.capacity = capacity;
+        this.rate = rate;
+    }
+
 
     public int getId() {
         return id;
@@ -74,12 +60,12 @@ public class Aircraft implements Serializable {
         this.name = name;
     }
 
-    public Company getOwner() {
-        return owner;
+    public double getRate() {
+        return rate;
     }
 
-    public void setOwner(Company owner) {
-        this.owner = owner;
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 
     public Capacity getCapacity() {
@@ -90,28 +76,29 @@ public class Aircraft implements Serializable {
         this.capacity = capacity;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Aircraft)) return false;
         Aircraft aircraft = (Aircraft) o;
         return getId() == aircraft.getId() &&
+                Double.compare(aircraft.getRate(), getRate()) == 0 &&
                 Objects.equals(getName(), aircraft.getName()) &&
-                Objects.equals(getOwner(), aircraft.getOwner()) &&
                 getCapacity() == aircraft.getCapacity();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getOwner(), getCapacity());
+        return Objects.hash(getId(), getRate(), getName(), getCapacity());
     }
 
     @Override
     public String toString() {
         return "Aircraft{" +
                 "id=" + id +
+                ", rate=" + rate +
                 ", name='" + name + '\'' +
-                ", owner=" + owner +
                 ", capacity=" + capacity +
                 '}';
     }

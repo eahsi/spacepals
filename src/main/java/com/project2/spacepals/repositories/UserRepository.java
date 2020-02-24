@@ -69,6 +69,7 @@ public class UserRepository implements CrudRepositories<User> {
 
     // this method will be tested later.
     public Company addCompany(Company comp){
+
         Session session = sessionFactory.getCurrentSession();
         //User currentUser= session.get(User.class, 3);
         User currentUser = AppConfig.currentUser;

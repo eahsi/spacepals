@@ -42,11 +42,7 @@ public class Flight implements Serializable {
     private Planet departure;
 
     @JoinColumn
-    @ManyToOne(cascade={
-            CascadeType.REMOVE, CascadeType.DETACH,
-            CascadeType.MERGE, CascadeType.PERSIST
-    })
-    @JsonIgnore
+    @OneToOne
     private Aircraft aircraft;
 
     @JoinColumn
