@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class AircraftService {
@@ -36,10 +37,12 @@ public class AircraftService {
     @Transactional
     public Aircraft saveAircraft(AircraftDto aircraftDto){
 
+        Random rand = new Random();
+        double num = rand.nextDouble();
         Aircraft aircraft = new Aircraft();
         aircraft.setName(aircraftDto.getName());
         aircraft.setCapacity(Capacity.valueOf(aircraftDto.getCapacity()));
-        aircraft.setRate(0);
+        aircraft.setRate(num);
         aircraftRepository.saveToCompany(aircraftDto, aircraft);
         return aircraftRepository.save(aircraft);
     }
