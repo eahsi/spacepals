@@ -1,8 +1,8 @@
 application.properties
-/target/
 .idea
 /spacepals.iml
 /.classpath
 /.project
 /.settings
+/pom.xml
 logs
